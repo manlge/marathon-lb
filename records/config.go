@@ -60,7 +60,8 @@ type Config struct {
 	// Zookeeper: a single Zk url
 	Zk string
 	// Domain: name of the domain used (default "mesos", ie .mesos domain)
-	Domain string
+	Domain        string
+	DomainAliases []string `json:"domainAliases"`
 	// File is the location of the config.json file
 	File string
 	// Listen is the server DNS listener IP address

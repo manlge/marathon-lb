@@ -417,11 +417,19 @@ func (rg *RecordGenerator) taskRecord(task state.Task, f state.Framework, domain
 		ctx.taskName = task.DiscoveryInfo.Name
 		rg.taskContextRecord(ctx, task, f, domain, spec, newTask)
 		// LEGACY, TODO: REMOVE
+		mockFramework := state.Framework{Name: "yonyoucloud", Tasks: f.Tasks, PID: f.PID, Hostname: f.Hostname}
+
+		serviceDomain := "service"
+		rg.taskContextRecord(ctx, task, mockFramework, serviceDomain, spec, newTask)
 
 		ctx.taskName = spec(task.DiscoveryInfo.Name)
 		rg.taskContextRecord(ctx, task, f, domain, spec, newTask)
 	} else {
 		rg.taskContextRecord(ctx, task, f, domain, spec, newTask)
+
+		mockFramework := state.Framework{Name: "yonyoucloud", Tasks: f.Tasks, PID: f.PID, Hostname: f.Hostname}
+		serviceDomain := "service"
+		rg.taskContextRecord(ctx, task, mockFramework, serviceDomain, spec, newTask)
 	}
 
 }

@@ -117,6 +117,9 @@ func (res *Resolver) records() *records.RecordGenerator {
 func (res *Resolver) LaunchDNS() <-chan error {
 	// Handers for Mesos requests
 	dns.HandleFunc(res.config.Domain+".", panicRecover(res.HandleMesos))
+	for _, alias := range res.config.DomainAliases {
+		dns.HandleFunc(alias+".", panicRecover(res.HandleMesos))
+	}
 	// Handlers for nonMesos requests
 	for zone, fwd := range res.zoneFwds {
 		dns.HandleFunc(
